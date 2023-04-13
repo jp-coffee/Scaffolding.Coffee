@@ -1,0 +1,30 @@
+{
+	"name": "scaffolding.coffee",
+	"version": "0.0.1",
+	"description": "Scaffolding.Coffee is a CLI tool that quickly creates new projects and seamlessly integrates popular tools. Compatible with popular frameworks.",
+	"license": "MIT",
+	"author": {
+		"name": "JP.Coffee",
+		"url": "https://jp.coffee"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jp-coffee/Scaffolding.Coffee"
+	},
+	"bugs": {
+		"url": "https://github.com/jp-coffee/Scaffolding.Coffee/issues"
+	},
+	"homepage": "https://github.com/jp-coffee/Scaffolding.Coffee#readme",
+	"keywords": [
+		"cli",
+		"command-line",
+		"command-line-interface",
+		"command-line-tool",
+		"tool",
+		"utility"
+	],
+	"scripts": {
+		"lint": "echo \"Error: no lint specified\" && exit 0",
+		"test": "echo \"Error: no test specified\" && exit 0"
+	}
+}
