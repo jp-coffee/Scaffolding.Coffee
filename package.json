@@ -23,8 +23,36 @@
 		"tool",
 		"utility"
 	],
+	"bin": {
+		"scaffold-run-local": "./bin/scripts/scaffolding.js",
+		"scaffold": "./bin/scripts/scaffold.js",
+		"scaffold-nuxt": "./bin/scripts/nuxt.js",
+		"s-nuxt": "./bin/scripts/nuxt.js"
+	},
 	"scripts": {
-		"lint": "echo \"Error: no lint specified\" && exit 0",
-		"test": "echo \"Error: no test specified\" && exit 0"
+		"lint": "eslint --ext .ts,.tsx,.js,.jsx .",
+		"lint:fix": "eslint --ext .ts,.tsx,.js,.jsx . --fix",
+		"test": "vitest",
+		"build": "tsc",
+		"refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
+		"local": "clear && sudo npm run build && sudo npm i -g && clear && scaffold-run-local",
+		"local:nuxt": "clear && sudo npm run build && sudo npm i -g && clear && s-nuxt"
+	},
+	"devDependencies": {
+		"@types/node": "^18.15.11",
+		"@types/prompts": "^2.4.4",
+		"@typescript-eslint/eslint-plugin": "^5.58.0",
+		"@typescript-eslint/parser": "^5.58.0",
+		"eslint": "^8.38.0",
+		"eslint-config-prettier": "^8.8.0",
+		"eslint-formatter-pretty": "^5.0.0",
+		"eslint-plugin-import": "^2.27.5",
+		"eslint-plugin-prettier": "^4.2.1",
+		"kolorist": "^1.7.0",
+		"prettier": "^2.8.7",
+		"prompts": "^2.4.2",
+		"ts-node": "^10.9.1",
+		"vite": "^4.2.1",
+		"vitest": "^0.30.1"
 	}
 }
