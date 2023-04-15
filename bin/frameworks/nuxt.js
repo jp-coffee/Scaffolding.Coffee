@@ -59,7 +59,7 @@ const handleNuxt = (root, answers, pkg) => {
     (0, directories_1.useMakeDir)(`${root}/public`);
     (0, directories_1.useMakeDir)(`${root}/utils`);
     (0, directories_1.useMakeFile)(root, `assets/scaffolding.coffee.svg`, defaultDefaults.scaffoldingCoffeeSVG);
-    (0, directories_1.useMakeFile)(root, `components/WelcomeBlock.vue`, defaults.welcomeBlockVue(answers.typescript, answers.scss, answers.tailwindcss));
+    (0, directories_1.useMakeFile)(root, `components/WelcomeBlock.vue`, defaults.welcomeBlockVue(answers.typescript, answers.scss, answers.tailwindcss, answers.mpa));
     (0, directories_1.useMakeFile)(root, `components/Button/Default.vue`, defaults.buttonDefaultVue(answers.typescript, answers.scss, answers.tailwindcss));
     (0, directories_1.useMakeFile)(root, `layouts/default.vue`, defaults.defaultLayoutVue(answers.typescript, answers.scss, answers.tailwindcss));
     (0, directories_1.useMakeFile)(root, `public/nuxt.svg`, defaults.nuxtjsSVG);
@@ -131,7 +131,7 @@ const handleNuxt = (root, answers, pkg) => {
         (0, directories_1.useMakeFile)(root, 'postcss.config.js', tailwindcssDefaults.postcssConfig);
         (0, directories_1.useMakeFile)(root, 'tailwind.config.js', tailwindcssDefaults.tailwindcssConfig(answers.framework, answers.typescript, !answers.mpa));
     }
-    (0, directories_1.useMakeFile)(root, `${answers.mpa ? 'styles/global' : 'styles'}.${answers.scss ? 's' : ''}css`, defaults.globalStyles(answers.tailwindcss));
+    (0, directories_1.useMakeFile)(root, `${answers.mpa ? 'styles/global' : 'styles'}.${answers.scss ? 's' : ''}css`, defaults.globalStyles(answers.scss, answers.tailwindcss, answers.mpa));
     return pkg;
 };
 exports.handleNuxt = handleNuxt;

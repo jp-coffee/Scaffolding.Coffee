@@ -50,10 +50,11 @@ export declare const dashboardVue: (typescript: boolean, scss: boolean, tailwind
  * @param typescript Whether to use TypeScript.
  * @param scss Whether to use SCSS.
  * @param tailwindcss Whether to use Tailwind CSS.
+ * @param mpa Whether to use MPA.
  * @returns string
  * @tests ./frameworks.test.ts
  */
-export declare const welcomeBlockVue: (typescript: boolean, scss: boolean, tailwindcss: boolean) => string;
+export declare const welcomeBlockVue: (typescript: boolean, scss: boolean, tailwindcss: boolean, mpa: boolean) => string;
 /**
  * components/Button/Default.vue for Nuxt.
  * @param typescript Whether to use TypeScript.
@@ -115,8 +116,10 @@ export declare const utilsTest: (mpa: boolean) => string;
 export declare const typesIndex = "export type CountType = number\n";
 /**
  * styles/global.scss
+ * @param scss whether to use SCSS or not
  * @param tailwindcss whether to use Tailwind CSS or not
+ * @param mpa whether to use MPA or not
  * @returns string
  * @tests ./frameworks.test.ts
  */
-export declare const globalStyles: (tailwindcss: boolean) => string;
+export declare const globalStyles: (scss: boolean, tailwindcss: boolean, mpa: boolean) => string;

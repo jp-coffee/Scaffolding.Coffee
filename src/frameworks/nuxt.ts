@@ -54,6 +54,7 @@ export const handleNuxt = (
       answers.typescript,
       answers.scss,
       answers.tailwindcss,
+      answers.mpa,
     ),
   )
   useMakeFile(
@@ -212,7 +213,7 @@ export const handleNuxt = (
   useMakeFile(
     root,
     `${answers.mpa ? 'styles/global' : 'styles'}.${answers.scss ? 's' : ''}css`,
-    defaults.globalStyles(answers.tailwindcss),
+    defaults.globalStyles(answers.scss, answers.tailwindcss, answers.mpa),
   )
 
   return pkg

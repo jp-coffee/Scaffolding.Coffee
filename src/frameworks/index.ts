@@ -1,6 +1,6 @@
 import { Answers } from 'prompts'
 
-import { EAnswer, EFramework, TPKG } from '../types'
+import { EAnswer, EFramework, EMessageType, TPKG } from '../types'
 import { runCommand } from '../utils/commands'
 import { useMakeFile } from '../utils/directories'
 import { useSendMessage } from '../utils/messages'
@@ -32,6 +32,13 @@ export const useFramework = (root: string, answers: Answers<EAnswer>): void => {
   }
 
   useMakeFile(root, 'package.json', JSON.stringify(pkg, null, 2))
+
+  useSendMessage(`\n`)
+  useSendMessage(
+    `Your ${answers.framework} app has been scaffolded!`,
+    EMessageType.SUCCESS,
+  )
+  useSendMessage(`Installing dependencies. This might take a few minutes...\n`)
 
   runCommand(root, 'npm', ['install'])
 }

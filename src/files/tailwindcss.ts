@@ -54,7 +54,7 @@ export const tailwindcssConfig = (
     './app.vue',
     './**/*.vue',
     './**/*.scss',
-    './**/*css'
+    './**/*css',
   ],
   theme: {
     extend: {

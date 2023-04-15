@@ -122,10 +122,11 @@ exports.dashboardVue = dashboardVue;
  * @param typescript Whether to use TypeScript.
  * @param scss Whether to use SCSS.
  * @param tailwindcss Whether to use Tailwind CSS.
+ * @param mpa Whether to use MPA.
  * @returns string
  * @tests ./frameworks.test.ts
  */
-const welcomeBlockVue = (typescript, scss, tailwindcss) => `<script setup${typescript ? ' lang="ts"' : ''}>
+const welcomeBlockVue = (typescript, scss, tailwindcss, mpa) => `<script setup${typescript ? ' lang="ts"' : ''}>
 import { ${typescript ? 'Ref, ' : ''}ref } from 'vue'${!typescript
     ? ''
     : `
@@ -155,8 +156,11 @@ const resetCount = ()${typescript ? ': void' : ''} => {
       Check out
       <NuxtLink to="https://github.com/jp-coffee/Scaffolding.Coffee#readme" target="_blank">scaffold-nuxt</NuxtLink>,
       the official Scaffolding.Coffee + Nuxt starter
-    </p>
+    </p>${!mpa
+    ? ''
+    : `
     <p>View the <NuxtLink to="/auth/dashboard">dashboard</NuxtLink></p>
+    `}
     <p class="text-mine-shaft-400">
       Click on the Scaffolding.Coffee and Nuxt logos to learn more
     </p>
@@ -175,7 +179,7 @@ const resetCount = ()${typescript ? ': void' : ''} => {
   ${scss ? `` : `.welcome_block `}p {
     ${tailwindcss
     ? `@apply text-center flex items-center gap-1;`
-    : `text-align: center; display: flex; align-items: center; gap: 0.5rem;`}${scss
+    : `display: flex; align-items: center; gap: 0.25rem; text-align: center;`}${scss
     ? ``
     : `
 }`}${tailwindcss
@@ -186,9 +190,9 @@ const resetCount = ()${typescript ? ': void' : ''} => {
       color: #818181;
     }`}
 
-    ${scss ? `` : `.weclome_block p `}code {
+    ${scss ? `` : `.welcome_block p `}code {
       ${tailwindcss
-    ? `@apply bg-[#1a1a1a] text-sm rounded-lg px-1 font-serif;`
+    ? `@apply bg-[#1a1a1a] text-sm rounded-lg px-1;`
     : `background-color: #1a1a1a; font-size: 0.875rem; border-radius: 0.25rem; padding: 0.25rem;`}
     }${scss
     ? `
@@ -227,8 +231,8 @@ const props = defineProps({
 button {
   border: 1px solid #646cff00;
   ${tailwindcss
-    ? `@apply rounded-lg py-2 px-4 font-medium bg-[#1a1a1a] cursor-pointer transition-[border-color] duration-300 ease-in-out;`
-    : `border-radius: 0.25rem; padding: 0.5rem 1rem; font-weight: 500; background-color: #1a1a1a; cursor: pointer; transition: border-color 0.3s ease-in-out;`}${scss
+    ? `@apply rounded-lg py-2 px-4 font-medium bg-[#1a1a1a] cursor-pointer transition-[border-color] duration-300 ease-in-out; text-base`
+    : `cursor: pointer; border-radius: 0.5rem; --tw-bg-opacity: 1; background-color: rgb(26 26 26 / var(--tw-bg-opacity)); padding-top: 0.5rem; padding-bottom: 0.5rem; padding-left: 1rem; padding-right: 1rem; font-weight: 500; transition-property: border-color; transition-duration: 300ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); font-size: 1rem;`}${scss
     ? ``
     : `
 }`}
@@ -287,13 +291,13 @@ const defaultLayoutVue = (typescript, scss, tailwindcss) => `<script setup${type
   ${scss ? `` : `.layout_wrapper `}h1 {
     ${tailwindcss
     ? `@apply text-5xl font-medium text-center mb-20;`
-    : `font-size: 3rem; font-weight: 500; text-align: center; margin-bottom: 1.25rem;`}
+    : `margin-bottom: 5rem; text-align: center; font-size: 3rem; line-height: 1; font-weight: 500;`}
   }
 
   ${scss ? `` : `.layout_wrapper `}.layout_header {
     ${tailwindcss
     ? `@apply w-full flex items-center justify-center gap-6 mb-10;`
-    : `width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 0.625rem;`}${scss
+    : `margin-bottom: 2.5rem; display: flex; width: 100%; align-items: center; justify-content: center; gap: 1.5rem;`}${scss
     ? ``
     : `
 }`}
@@ -303,7 +307,7 @@ const defaultLayoutVue = (typescript, scss, tailwindcss) => `<script setup${type
       transition: filter 300ms;
       ${tailwindcss
     ? `@apply w-28 h-24 object-contain;`
-    : `width: 7rem; height: 6rem; object-fit: contain;`}${scss
+    : `height: 6rem; width: 7rem; -o-object-fit: contain; object-fit: contain;`}${scss
     ? ``
     : `
 }`}
@@ -478,17 +482,28 @@ exports.typesIndex = `export type CountType = number
 `;
 /**
  * styles/global.scss
+ * @param scss whether to use SCSS or not
  * @param tailwindcss whether to use Tailwind CSS or not
+ * @param mpa whether to use MPA or not
  * @returns string
  * @tests ./frameworks.test.ts
  */
-const globalStyles = (tailwindcss) => `${tailwindcss
+const globalStyles = (scss, tailwindcss, mpa) => `${tailwindcss
     ? `@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 `
-    : ''}* {
+    : ''}@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');${mpa
+    ? `@import url('./variables.${scss ? 's' : ''}css');`
+    : `
+
+:root {
+    --mine-shaft-100: #e3e3e3;
+    --mine-shaft-950: #242424;
+}`}
+
+* {
    box-sizing: inherit;
 }
 html {
@@ -497,15 +512,21 @@ html {
 html,
 body {
    max-width: 100vw;
+   font-family: 'Inter', sans-serif;
    ${tailwindcss ? `@apply overflow-x-clip;` : 'overflow-x: clip;'}
 }
 body {
    ${tailwindcss
     ? `@apply bg-mine-shaft-950 text-mine-shaft-100;`
-    : 'background-color: #1f1f1f; color: #f5f5f5;'}
+    : 'background-color: var(--mine-shaft-950); color: var(--mine-shaft-100);'}
+}
+h1, h2, h3, h4, h5, h6, p, a, ul, ol, li, blockquote, pre, code, table, tr, td, th, form, input, textarea, button, select, details, summary {
+    ${tailwindcss ? `@apply m-0 p-0` : 'margin: 0; padding: 0;'}
 }
 a{
-   ${tailwindcss ? `@apply text-blue-400;` : 'color: #0070f3;'}
+   ${tailwindcss
+    ? `@apply text-blue-400 no-underline;`
+    : 'color: #0070f3; text-decoration: none;'}
 }
 `;
 exports.globalStyles = globalStyles;

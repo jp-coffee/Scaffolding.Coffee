@@ -46,7 +46,7 @@ const tailwindcssConfig = (framework, typescript, spa) => {
     './app.vue',
     './**/*.vue',
     './**/*.scss',
-    './**/*css'
+    './**/*css',
   ],
   theme: {
     extend: {

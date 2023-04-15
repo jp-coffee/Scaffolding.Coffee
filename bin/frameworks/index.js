@@ -30,6 +30,9 @@ const useFramework = (root, answers) => {
             break;
     }
     (0, directories_1.useMakeFile)(root, 'package.json', JSON.stringify(pkg, null, 2));
+    (0, messages_1.useSendMessage)(`\n`);
+    (0, messages_1.useSendMessage)(`Your ${answers.framework} app has been scaffolded!`, types_1.EMessageType.SUCCESS);
+    (0, messages_1.useSendMessage)(`Installing dependencies. This might take a few minutes...\n`);
     (0, commands_1.runCommand)(root, 'npm', ['install']);
 };
 exports.useFramework = useFramework;
