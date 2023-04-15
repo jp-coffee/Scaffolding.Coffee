@@ -1,6 +1,7 @@
-import { dir } from 'console'
 import fs from 'fs'
 import path from 'path'
+
+import { EMessageType } from '../types'
 
 import { useSendMessage } from './messages'
 
@@ -191,6 +192,6 @@ export const useCopyFile = (from: string, to: string): void => {
 
   fs.copyFile(from, to, (err) => {
     if (err) throw err
-    console.log(`Successfully copied file from ${from} to ${to}`)
+    useSendMessage(`Copied ${from} to ${to}`, EMessageType.ERROR)
   })
 }
