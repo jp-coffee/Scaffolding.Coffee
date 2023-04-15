@@ -9,6 +9,7 @@ const types_1 = require("../types");
  */
 exports.scripts = {
     lint: 'eslint --ext .js,.vue,.ts .',
+    'lint:fix': 'eslint --ext .js,.vue,.ts . --fix',
 };
 /**
  * Returns the devDependencies for ESLint.
@@ -37,10 +38,11 @@ exports.devDependencies = devDependencies;
 /**
  * Returns the .eslintrc.js file.
  * @param framework The framework.
+ * @param typescript Whether to include TypeScript.
  * @returns string
  * @tests ./frameworks.test.ts
  */
-const eslintrc = (framework) => {
+const eslintrc = (framework, typescript) => {
     switch (framework) {
         case types_1.EFramework.NUXT:
             return `{
@@ -52,15 +54,20 @@ const eslintrc = (framework) => {
     "jest": true
   },
   "extends": [
-    "eslint:recommended",
+    "eslint:recommended",${typescript
+                ? `
     "plugin:@typescript-eslint/recommended",
+    `
+                : ''}
     "plugin:vue/vue3-recommended",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["@typescript-eslint", "prettier", "import", "vue", "vitest"],
+  "plugins": [${typescript ? `"@typescript-eslint", ` : ''}"prettier", "import", "vue", "vitest"],
   "parser": "vue-eslint-parser",
-  "parserOptions": {
-    "parser": "@typescript-eslint/parser",
+  "parserOptions": {${typescript
+                ? `
+"parser": "@typescript-eslint/parser",`
+                : ``}
     "ecmaVersion": 2020,
     "sourceType": "module",
     "ecmaFeatures": {
@@ -83,7 +90,9 @@ const eslintrc = (framework) => {
       "endOfLine": "auto",
       "tabWidth": 2
     }],
-    "@typescript-eslint/explicit-function-return-type": "off",
+  ${typescript
+                ? `"@typescript-eslint/explicit-function-return-type": "off",`
+                : ''}
     "no-debugger": "error",
     "no-console": ["warn", { "allow": ["warn", "error", "debug"]}],
     "no-warning-comments": ["warn", { "terms": ["todo", "fixme", "xxx"], "location": "anywhere" }],

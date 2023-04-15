@@ -64,7 +64,7 @@ const handleNuxt = (root, answers, pkg) => {
     (0, directories_1.useMakeFile)(root, `layouts/default.vue`, defaults.defaultLayoutVue(answers.typescript, answers.scss, answers.tailwindcss));
     (0, directories_1.useMakeFile)(root, `public/nuxt.svg`, defaults.nuxtjsSVG);
     (0, directories_1.useMakeFile)(root, `utils/count.${answers.typescript ? 'ts' : 'js'}`, defaults.countUtils(answers.typescript));
-    (0, directories_1.useMakeFile)(root, `nuxt.config.${answers.typescript ? 'ts' : 'js'}`, defaults.nuxtConfig(answers.tailwindcss));
+    (0, directories_1.useMakeFile)(root, `nuxt.config.${answers.typescript ? 'ts' : 'js'}`, defaults.nuxtConfig(answers.typescript, answers.tailwindcss));
     (0, directories_1.useMakeFile)(root, `app.vue`, defaults.appVue(answers.typescript, answers.scss, answers.mpa));
     if (answers.mpa) {
         (0, directories_1.useMakeDir)(`${root}/middleware`);
@@ -79,6 +79,9 @@ const handleNuxt = (root, answers, pkg) => {
         (0, directories_1.useMakeFile)(root, 'pages/auth/dashboard.vue', defaults.dashboardVue(answers.typescript, answers.scss, answers.tailwindcss));
         (0, directories_1.useMakeFile)(root, `middleware/auth.${answers.typescript ? 'ts' : 'js'}`, defaults.authMiddleware);
         (0, directories_1.useMakeFile)(root, `layouts/admin.vue`, defaults.adminLayoutVue(answers.typescript, answers.scss, answers.tailwindcss));
+        if (!answers.tailwindcss) {
+            (0, directories_1.useMakeFile)(root, `styles/variables.${answers.scss ? 'scss' : 'css'}`, defaults.variableStyles);
+        }
     }
     if (answers.typescript) {
         pkg.devDependencies = {
@@ -86,7 +89,7 @@ const handleNuxt = (root, answers, pkg) => {
             ...tsDefaults.devDependencies(),
         };
         (0, directories_1.useMakeFile)(root, 'tsconfig.json', tsDefaults.tsconfig(answers.framework));
-        (0, directories_1.useMakeFile)(root, `${answers.mpa ? 'types/utils' : 'tests'}.test.${answers.typescript ? 'ts' : 'js'}`, defaults.typesIndex);
+        (0, directories_1.useMakeFile)(root, `types${answers.mpa ? '/index' : ''}.ts`, defaults.typesIndex);
     }
     if (answers.eslint) {
         pkg = {
@@ -100,7 +103,7 @@ const handleNuxt = (root, answers, pkg) => {
                 ...eslintDefaults.devDependencies(answers.typescript),
             },
         };
-        (0, directories_1.useMakeFile)(root, '.eslintrc', eslintDefaults.eslintrc(answers.framework));
+        (0, directories_1.useMakeFile)(root, '.eslintrc', eslintDefaults.eslintrc(answers.framework, answers.typescript));
     }
     if (answers.vitest) {
         pkg = {
@@ -114,7 +117,7 @@ const handleNuxt = (root, answers, pkg) => {
                 ...vitestDefaults.devDependencies,
             },
         };
-        (0, directories_1.useMakeFile)(root, `vite.config.${answers.typescript ? 'ts' : 'js'}`, vitestDefaults.viteConfig);
+        (0, directories_1.useMakeFile)(root, `vite.config.${answers.typescript ? 'ts' : 'js'}`, vitestDefaults.viteConfig(answers.typescript));
         (0, directories_1.useMakeFile)(root, `tests${answers.mpa ? '/utils' : ''}.test.${answers.typescript ? 'ts' : 'js'}`, defaults.utilsTest(answers.mpa));
     }
     if (answers.scss) {

@@ -15,7 +15,8 @@ export declare const devDependencies: (typescript: boolean) => TPKG['devDependen
 /**
  * Returns the .eslintrc.js file.
  * @param framework The framework.
+ * @param typescript Whether to include TypeScript.
  * @returns string
  * @tests ./frameworks.test.ts
  */
-export declare const eslintrc: (framework: EFramework) => string;
+export declare const eslintrc: (framework: EFramework, typescript: boolean) => string;

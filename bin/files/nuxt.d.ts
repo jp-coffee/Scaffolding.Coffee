@@ -13,11 +13,12 @@ export declare const scripts: TPKG['scripts'];
 export declare const devDependencies: TPKG['devDependencies'];
 /**
  * Dependencies for Nuxt package.json.
+ * @param typescript Whether to include TypeScript.
  * @param tailwindcss Whether to include Tailwind CSS.
  * @returns TPKG['dependencies']
  * @tests ./frameworks.test.ts
  */
-export declare const nuxtConfig: (tailwindcss: boolean) => string;
+export declare const nuxtConfig: (typescript: boolean, tailwindcss: boolean) => string;
 /**
  * App.vue for Nuxt.
  * @param typescript Whether to use TypeScript.
@@ -123,3 +124,9 @@ export declare const typesIndex = "export type CountType = number\n";
  * @tests ./frameworks.test.ts
  */
 export declare const globalStyles: (scss: boolean, tailwindcss: boolean, mpa: boolean) => string;
+/**
+ * styles/variables.scss
+ * @returns string
+ * @tests ./frameworks.test.ts
+ */
+export declare const variableStyles = ":root {\n    --mine-shaft-100: #e3e3e3;\n    --mine-shaft-950: #242424;\n    --ochre-500: #d87324;\n}\n";

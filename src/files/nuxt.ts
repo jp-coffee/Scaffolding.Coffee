@@ -24,13 +24,20 @@ export const devDependencies: TPKG['devDependencies'] = {
 
 /**
  * Dependencies for Nuxt package.json.
+ * @param typescript Whether to include TypeScript.
  * @param tailwindcss Whether to include Tailwind CSS.
  * @returns TPKG['dependencies']
  * @tests ./frameworks.test.ts
  */
 export const nuxtConfig = (
+  typescript: boolean,
   tailwindcss: boolean,
-) => `// https://nuxt.com/docs/api/configuration/nuxt-config
+) => `// https://nuxt.com/docs/api/configuration/nuxt-config${
+  typescript
+    ? ''
+    : `
+// eslint-disable-next-line no-undef`
+}
 export default defineNuxtConfig({${
   tailwindcss
     ? `
@@ -280,7 +287,7 @@ button {
   border: 1px solid #646cff00;
   ${
     tailwindcss
-      ? `@apply rounded-lg py-2 px-4 font-medium bg-[#1a1a1a] cursor-pointer transition-[border-color] duration-300 ease-in-out; text-base`
+      ? `@apply rounded-lg py-2 px-4 font-medium bg-[#1a1a1a] cursor-pointer transition-[border-color] duration-300 ease-in-out text-base;`
       : `cursor: pointer; border-radius: 0.5rem; --tw-bg-opacity: 1; background-color: rgb(26 26 26 / var(--tw-bg-opacity)); padding-top: 0.5rem; padding-bottom: 0.5rem; padding-left: 1rem; padding-right: 1rem; font-weight: 500; transition-property: border-color; transition-duration: 300ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); font-size: 1rem;`
   }${
   scss
@@ -459,7 +466,7 @@ export const adminLayoutVue = (
     ${
       tailwindcss
         ? `@apply text-5xl font-medium text-center mb-20;`
-        : `font-size: 3rem; font-weight: 500; text-align: center; margin-bottom: 1.25rem;`
+        : `margin-bottom: 5rem; text-align: center; font-size: 3rem; line-height: 1; font-weight: 500;`
     }
   }
 
@@ -467,7 +474,7 @@ export const adminLayoutVue = (
     ${
       tailwindcss
         ? `@apply w-full flex items-center justify-center gap-6 mb-10;`
-        : `width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 0.625rem;`
+        : `margin-bottom: 2.5rem; display: flex; width: 100%; align-items: center; justify-content: center; gap: 1.5rem;`
     }${
   scss
     ? ``
@@ -481,7 +488,7 @@ export const adminLayoutVue = (
       ${
         tailwindcss
           ? `@apply w-28 h-24 object-contain;`
-          : `width: 7rem; height: 6rem; object-fit: contain;`
+          : `height: 6rem; width: 7rem; -o-object-fit: contain; object-fit: contain;`
       }${
   scss
     ? ``
@@ -612,13 +619,15 @@ export const globalStyles = (
 `
     : ''
 }@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');${
-  mpa
-    ? `@import url('./variables.${scss ? 's' : ''}css');`
+  mpa && !tailwindcss
+    ? `
+@import './variables.${scss ? 's' : ''}css';`
     : `
 
 :root {
     --mine-shaft-100: #e3e3e3;
     --mine-shaft-950: #242424;
+    --ochre-500: #d87324;
 }`
 }
 
@@ -647,8 +656,20 @@ h1, h2, h3, h4, h5, h6, p, a, ul, ol, li, blockquote, pre, code, table, tr, td, 
 a{
    ${
      tailwindcss
-       ? `@apply text-blue-400 no-underline;`
-       : 'color: #0070f3; text-decoration: none;'
+       ? `@apply text-ochre-500 no-underline;`
+       : 'color: var(--ochre-500); text-decoration: none;'
    }
+}
+`
+
+/**
+ * styles/variables.scss
+ * @returns string
+ * @tests ./frameworks.test.ts
+ */
+export const variableStyles = `:root {
+    --mine-shaft-100: #e3e3e3;
+    --mine-shaft-950: #242424;
+    --ochre-500: #d87324;
 }
 `

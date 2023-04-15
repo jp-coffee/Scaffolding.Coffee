@@ -84,7 +84,7 @@ export const handleNuxt = (
   useMakeFile(
     root,
     `nuxt.config.${answers.typescript ? 'ts' : 'js'}`,
-    defaults.nuxtConfig(answers.tailwindcss),
+    defaults.nuxtConfig(answers.typescript, answers.tailwindcss),
   )
   useMakeFile(
     root,
@@ -128,6 +128,13 @@ export const handleNuxt = (
         answers.tailwindcss,
       ),
     )
+    if (!answers.tailwindcss) {
+      useMakeFile(
+        root,
+        `styles/variables.${answers.scss ? 'scss' : 'css'}`,
+        defaults.variableStyles,
+      )
+    }
   }
 
   if (answers.typescript) {
@@ -138,9 +145,7 @@ export const handleNuxt = (
     useMakeFile(root, 'tsconfig.json', tsDefaults.tsconfig(answers.framework))
     useMakeFile(
       root,
-      `${answers.mpa ? 'types/utils' : 'tests'}.test.${
-        answers.typescript ? 'ts' : 'js'
-      }`,
+      `types${answers.mpa ? '/index' : ''}.ts`,
       defaults.typesIndex,
     )
   }
@@ -157,7 +162,11 @@ export const handleNuxt = (
         ...eslintDefaults.devDependencies(answers.typescript),
       },
     }
-    useMakeFile(root, '.eslintrc', eslintDefaults.eslintrc(answers.framework))
+    useMakeFile(
+      root,
+      '.eslintrc',
+      eslintDefaults.eslintrc(answers.framework, answers.typescript),
+    )
   }
 
   if (answers.vitest) {
@@ -175,7 +184,7 @@ export const handleNuxt = (
     useMakeFile(
       root,
       `vite.config.${answers.typescript ? 'ts' : 'js'}`,
-      vitestDefaults.viteConfig,
+      vitestDefaults.viteConfig(answers.typescript),
     )
     useMakeFile(
       root,

@@ -21,14 +21,17 @@ export const devDependencies: TPKG['devDependencies'] = {
 
 /**
  * Vitest config file for Vitest.
+ * @param typescript Whether to include TypeScript.
  * @returns string
  * @tests ./frameworks.test.ts
  */
-export const viteConfig = `import { defineConfig } from 'vitest/config'
+export const viteConfig = (
+  typescript: boolean,
+): string => `import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    include: ['**/*.test.ts'],
+    include: ['**/*.test.${typescript ? 'ts' : 'js'}'],
   },
 })
 `

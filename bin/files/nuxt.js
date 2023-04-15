@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.globalStyles = exports.typesIndex = exports.utilsTest = exports.countUtils = exports.authMiddleware = exports.nuxtjsSVG = exports.adminLayoutVue = exports.defaultLayoutVue = exports.buttonDefaultVue = exports.welcomeBlockVue = exports.dashboardVue = exports.indexVue = exports.appVue = exports.nuxtConfig = exports.devDependencies = exports.scripts = void 0;
+exports.variableStyles = exports.globalStyles = exports.typesIndex = exports.utilsTest = exports.countUtils = exports.authMiddleware = exports.nuxtjsSVG = exports.adminLayoutVue = exports.defaultLayoutVue = exports.buttonDefaultVue = exports.welcomeBlockVue = exports.dashboardVue = exports.indexVue = exports.appVue = exports.nuxtConfig = exports.devDependencies = exports.scripts = void 0;
 /**
  * Scripts for Nuxt package.json.
  * @returns TPKG['scripts']
@@ -23,11 +23,15 @@ exports.devDependencies = {
 };
 /**
  * Dependencies for Nuxt package.json.
+ * @param typescript Whether to include TypeScript.
  * @param tailwindcss Whether to include Tailwind CSS.
  * @returns TPKG['dependencies']
  * @tests ./frameworks.test.ts
  */
-const nuxtConfig = (tailwindcss) => `// https://nuxt.com/docs/api/configuration/nuxt-config
+const nuxtConfig = (typescript, tailwindcss) => `// https://nuxt.com/docs/api/configuration/nuxt-config${typescript
+    ? ''
+    : `
+// eslint-disable-next-line no-undef`}
 export default defineNuxtConfig({${tailwindcss
     ? `
   postcss: {
@@ -231,7 +235,7 @@ const props = defineProps({
 button {
   border: 1px solid #646cff00;
   ${tailwindcss
-    ? `@apply rounded-lg py-2 px-4 font-medium bg-[#1a1a1a] cursor-pointer transition-[border-color] duration-300 ease-in-out; text-base`
+    ? `@apply rounded-lg py-2 px-4 font-medium bg-[#1a1a1a] cursor-pointer transition-[border-color] duration-300 ease-in-out text-base;`
     : `cursor: pointer; border-radius: 0.5rem; --tw-bg-opacity: 1; background-color: rgb(26 26 26 / var(--tw-bg-opacity)); padding-top: 0.5rem; padding-bottom: 0.5rem; padding-left: 1rem; padding-right: 1rem; font-weight: 500; transition-property: border-color; transition-duration: 300ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); font-size: 1rem;`}${scss
     ? ``
     : `
@@ -372,13 +376,13 @@ const adminLayoutVue = (typescript, scss, tailwindcss) => `<script setup${typesc
   ${scss ? `` : `.layout_wrapper `}h1 {
     ${tailwindcss
     ? `@apply text-5xl font-medium text-center mb-20;`
-    : `font-size: 3rem; font-weight: 500; text-align: center; margin-bottom: 1.25rem;`}
+    : `margin-bottom: 5rem; text-align: center; font-size: 3rem; line-height: 1; font-weight: 500;`}
   }
 
   ${scss ? `` : `.layout_wrapper `}.layout_header {
     ${tailwindcss
     ? `@apply w-full flex items-center justify-center gap-6 mb-10;`
-    : `width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 0.625rem;`}${scss
+    : `margin-bottom: 2.5rem; display: flex; width: 100%; align-items: center; justify-content: center; gap: 1.5rem;`}${scss
     ? ``
     : `
 }`}
@@ -388,7 +392,7 @@ const adminLayoutVue = (typescript, scss, tailwindcss) => `<script setup${typesc
       transition: filter 300ms;
       ${tailwindcss
     ? `@apply w-28 h-24 object-contain;`
-    : `width: 7rem; height: 6rem; object-fit: contain;`}${scss
+    : `height: 6rem; width: 7rem; -o-object-fit: contain; object-fit: contain;`}${scss
     ? ``
     : `
 }`}
@@ -494,13 +498,15 @@ const globalStyles = (scss, tailwindcss, mpa) => `${tailwindcss
 @tailwind utilities;
 
 `
-    : ''}@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');${mpa
-    ? `@import url('./variables.${scss ? 's' : ''}css');`
+    : ''}@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');${mpa && !tailwindcss
+    ? `
+@import './variables.${scss ? 's' : ''}css';`
     : `
 
 :root {
     --mine-shaft-100: #e3e3e3;
     --mine-shaft-950: #242424;
+    --ochre-500: #d87324;
 }`}
 
 * {
@@ -525,9 +531,20 @@ h1, h2, h3, h4, h5, h6, p, a, ul, ol, li, blockquote, pre, code, table, tr, td, 
 }
 a{
    ${tailwindcss
-    ? `@apply text-blue-400 no-underline;`
-    : 'color: #0070f3; text-decoration: none;'}
+    ? `@apply text-ochre-500 no-underline;`
+    : 'color: var(--ochre-500); text-decoration: none;'}
 }
 `;
 exports.globalStyles = globalStyles;
+/**
+ * styles/variables.scss
+ * @returns string
+ * @tests ./frameworks.test.ts
+ */
+exports.variableStyles = `:root {
+    --mine-shaft-100: #e3e3e3;
+    --mine-shaft-950: #242424;
+    --ochre-500: #d87324;
+}
+`;
 //# sourceMappingURL=nuxt.js.map

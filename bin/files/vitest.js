@@ -20,15 +20,17 @@ exports.devDependencies = {
 };
 /**
  * Vitest config file for Vitest.
+ * @param typescript Whether to include TypeScript.
  * @returns string
  * @tests ./frameworks.test.ts
  */
-exports.viteConfig = `import { defineConfig } from 'vitest/config'
+const viteConfig = (typescript) => `import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    include: ['**/*.test.ts'],
+    include: ['**/*.test.${typescript ? 'ts' : 'js'}'],
   },
 })
 `;
+exports.viteConfig = viteConfig;
 //# sourceMappingURL=vitest.js.map

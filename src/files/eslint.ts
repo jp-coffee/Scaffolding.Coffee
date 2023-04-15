@@ -7,6 +7,7 @@ import { EFramework, TPKG } from '../types'
  */
 export const scripts: TPKG['scripts'] = {
   lint: 'eslint --ext .js,.vue,.ts .',
+  'lint:fix': 'eslint --ext .js,.vue,.ts . --fix',
 }
 
 /**
@@ -38,10 +39,14 @@ export const devDependencies = (
 /**
  * Returns the .eslintrc.js file.
  * @param framework The framework.
+ * @param typescript Whether to include TypeScript.
  * @returns string
  * @tests ./frameworks.test.ts
  */
-export const eslintrc = (framework: EFramework): string => {
+export const eslintrc = (
+  framework: EFramework,
+  typescript: boolean,
+): string => {
   switch (framework) {
     case EFramework.NUXT:
       return `{
@@ -53,15 +58,26 @@ export const eslintrc = (framework: EFramework): string => {
     "jest": true
   },
   "extends": [
-    "eslint:recommended",
+    "eslint:recommended",${
+      typescript
+        ? `
     "plugin:@typescript-eslint/recommended",
+    `
+        : ''
+    }
     "plugin:vue/vue3-recommended",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["@typescript-eslint", "prettier", "import", "vue", "vitest"],
+  "plugins": [${
+    typescript ? `"@typescript-eslint", ` : ''
+  }"prettier", "import", "vue", "vitest"],
   "parser": "vue-eslint-parser",
-  "parserOptions": {
-    "parser": "@typescript-eslint/parser",
+  "parserOptions": {${
+    typescript
+      ? `
+"parser": "@typescript-eslint/parser",`
+      : ``
+  }
     "ecmaVersion": 2020,
     "sourceType": "module",
     "ecmaFeatures": {
@@ -84,7 +100,11 @@ export const eslintrc = (framework: EFramework): string => {
       "endOfLine": "auto",
       "tabWidth": 2
     }],
-    "@typescript-eslint/explicit-function-return-type": "off",
+  ${
+    typescript
+      ? `"@typescript-eslint/explicit-function-return-type": "off",`
+      : ''
+  }
     "no-debugger": "error",
     "no-console": ["warn", { "allow": ["warn", "error", "debug"]}],
     "no-warning-comments": ["warn", { "terms": ["todo", "fixme", "xxx"], "location": "anywhere" }],
