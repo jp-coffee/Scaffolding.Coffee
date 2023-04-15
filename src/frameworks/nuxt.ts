@@ -8,7 +8,7 @@ import * as tailwindcssDefaults from '../files/tailwindcss'
 import * as tsDefaults from '../files/typescript'
 import * as vitestDefaults from '../files/vitest'
 import { EAnswer, TPKG } from '../types'
-import { useMakeDir, useMakeFile } from '../utils/directories'
+import { useCopyFile, useMakeDir, useMakeFile } from '../utils/directories'
 
 /**
  * Handle Nuxt scaffolding.
@@ -76,6 +76,10 @@ export const handleNuxt = (
     ),
   )
   useMakeFile(root, `public/nuxt.svg`, defaults.nuxtjsSVG)
+  useCopyFile(
+    '../../assets/scaffolding.coffee.ico',
+    `${root}/public/favicon.ico`,
+  )
   useMakeFile(
     root,
     `utils/count.${answers.typescript ? 'ts' : 'js'}`,

@@ -65,3 +65,10 @@ export declare const useRenameDir: (from: string, to: string) => void;
  * @see useMakeDir
  */
 export declare const useMakeFile: (dir: string, file: string, content: string) => void;
+/**
+ * Recursively copy a file and its contents to a new location.
+ * @param from The source file to copy from.
+ * @param to The destination file to copy to.
+ * @returns void
+ */
+export declare const useCopyFile: (from: string, to: string) => void;

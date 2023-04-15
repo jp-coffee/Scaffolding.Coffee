@@ -35,8 +35,8 @@
 		"test": "vitest",
 		"build": "tsc",
 		"refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
-		"local": "clear && sudo npm run build && sudo npm i -g && clear && scaffold-run-local",
-		"local:nuxt": "clear && sudo npm run build && sudo npm i -g && clear && s-nuxt"
+		"dev": "clear && sudo npm run build && sudo npm i -g && clear && scaffold-run-local",
+		"dev:nuxt": "clear && sudo npm run build && sudo npm i -g && clear && s-nuxt"
 	},
 	"devDependencies": {
 		"@types/node": "^18.15.11",

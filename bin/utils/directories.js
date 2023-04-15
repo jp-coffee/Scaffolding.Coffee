@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useMakeFile = exports.useRenameDir = exports.useMoveDir = exports.useCopyDir = exports.useRemoveDir = exports.useEmptyDir = exports.useMakeDir = exports.isDirFile = exports.isRootEmpty = exports.isDirEmpty = void 0;
+exports.useCopyFile = exports.useMakeFile = exports.useRenameDir = exports.useMoveDir = exports.useCopyDir = exports.useRemoveDir = exports.useEmptyDir = exports.useMakeDir = exports.isDirFile = exports.isRootEmpty = exports.isDirEmpty = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 /**
@@ -178,4 +178,19 @@ const useMakeFile = (dir, file, content) => {
     fs_1.default.writeFileSync(fDir, content);
 };
 exports.useMakeFile = useMakeFile;
+/**
+ * Recursively copy a file and its contents to a new location.
+ * @param from The source file to copy from.
+ * @param to The destination file to copy to.
+ * @returns void
+ */
+const useCopyFile = (from, to) => {
+    from = path_1.default.resolve(__dirname, from);
+    fs_1.default.copyFile(from, to, (err) => {
+        if (err)
+            throw err;
+        console.log(`Successfully copied file from ${from} to ${to}`);
+    });
+};
+exports.useCopyFile = useCopyFile;
 //# sourceMappingURL=directories.js.map

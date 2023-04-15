@@ -1,5 +1,8 @@
+import { dir } from 'console'
 import fs from 'fs'
 import path from 'path'
+
+import { useSendMessage } from './messages'
 
 /**
  * Check if a directory is empty.
@@ -175,4 +178,19 @@ export const useMakeFile = (
     useMakeDir(dir)
   }
   fs.writeFileSync(fDir, content)
+}
+
+/**
+ * Recursively copy a file and its contents to a new location.
+ * @param from The source file to copy from.
+ * @param to The destination file to copy to.
+ * @returns void
+ */
+export const useCopyFile = (from: string, to: string): void => {
+  from = path.resolve(__dirname, from)
+
+  fs.copyFile(from, to, (err) => {
+    if (err) throw err
+    console.log(`Successfully copied file from ${from} to ${to}`)
+  })
 }

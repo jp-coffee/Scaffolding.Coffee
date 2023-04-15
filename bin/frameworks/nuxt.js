@@ -63,6 +63,7 @@ const handleNuxt = (root, answers, pkg) => {
     (0, directories_1.useMakeFile)(root, `components/Button/Default.vue`, defaults.buttonDefaultVue(answers.typescript, answers.scss, answers.tailwindcss));
     (0, directories_1.useMakeFile)(root, `layouts/default.vue`, defaults.defaultLayoutVue(answers.typescript, answers.scss, answers.tailwindcss));
     (0, directories_1.useMakeFile)(root, `public/nuxt.svg`, defaults.nuxtjsSVG);
+    (0, directories_1.useCopyFile)('../../assets/scaffolding.coffee.ico', `${root}/public/favicon.ico`);
     (0, directories_1.useMakeFile)(root, `utils/count.${answers.typescript ? 'ts' : 'js'}`, defaults.countUtils(answers.typescript));
     (0, directories_1.useMakeFile)(root, `nuxt.config.${answers.typescript ? 'ts' : 'js'}`, defaults.nuxtConfig(answers.typescript, answers.tailwindcss));
     (0, directories_1.useMakeFile)(root, `app.vue`, defaults.appVue(answers.typescript, answers.scss, answers.mpa));
