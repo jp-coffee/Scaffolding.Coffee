@@ -49,11 +49,11 @@ The following commands are currently supported by Scaffolding.Coffee:
 
 > All commands can be run with the `scaffold-` or `s-` alias.
 
-- `scaffold-vue`: Setup a new Vue project (roadmap)
+- `scaffold-vue`: Setup a new Vue project (development)
 - `scaffold-react`: Setup a new React project (roadmap)
 - `scaffold-svelte`: Setup a new Svelte project (roadmap)
 - `scaffold-vite`: Setup a new Vite project (roadmap)
-- `scaffold-nuxt`: Setup a new Nuxt project (development) (alpha)
+- `scaffold-nuxt`: Setup a new Nuxt project (alpha)
 - `scaffold-next`: Setup a new Next project (roadmap)
 - `scaffold-sveltekit`: Setup a new SvelteKit project (roadmap)
 

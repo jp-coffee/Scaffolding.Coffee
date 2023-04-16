@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.useCopyFile = exports.useMakeFile = exports.useRenameDir = exports.useMoveDir = exports.useCopyDir = exports.useRemoveDir = exports.useEmptyDir = exports.useMakeDir = exports.isDirFile = exports.isRootEmpty = exports.isDirEmpty = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
+const types_1 = require("../types");
+const messages_1 = require("./messages");
 /**
  * Check if a directory is empty.
  * @param dir The directory to check.
@@ -189,7 +191,7 @@ const useCopyFile = (from, to) => {
     fs_1.default.copyFile(from, to, (err) => {
         if (err)
             throw err;
-        console.log(`Successfully copied file from ${from} to ${to}`);
+        (0, messages_1.useSendMessage)(`Copied ${from} to ${to}`, types_1.EMessageType.ERROR);
     });
 };
 exports.useCopyFile = useCopyFile;

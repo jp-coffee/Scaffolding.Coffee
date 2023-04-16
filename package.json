@@ -26,6 +26,8 @@
 	"bin": {
 		"scaffold-run-local": "./bin/scripts/scaffolding.js",
 		"scaffold": "./bin/scripts/scaffold.js",
+		"scaffold-vue": "./bin/scripts/vue.js",
+		"s-vue": "./bin/scripts/vue.js",
 		"scaffold-nuxt": "./bin/scripts/nuxt.js",
 		"s-nuxt": "./bin/scripts/nuxt.js"
 	},
