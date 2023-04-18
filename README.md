@@ -40,7 +40,7 @@ scaffold --version
 ```
 
 <p align="center">
-   <img width="100%" src="./assets/scaffold-shell-example.png" alt="Scaffolding.Coffee logo">
+   <img width="100%" src="./assets/scaffold-script-example.png" alt="Scaffolding.Coffee logo">
 </p>
 
 ## Usage
